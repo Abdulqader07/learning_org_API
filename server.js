@@ -13,6 +13,9 @@ const db = DataBase('database2.db');
 app.use(express.json());
 app.use(cookieParser());
 
+// in testing this error will appear 'app.address is not function' if you don't write the following line..
+module.exports = app;
+
 // Enabling foreign keys in better-sqlite3
 db.exec(`PRAGMA foreign_keys = ON;`)
 
@@ -21,8 +24,8 @@ db.exec(`PRAGMA foreign_keys = ON;`)
 db.exec(`
     CREATE TABLE IF NOT EXISTS users(
         userid INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT NOT NULL,
-        email TEXT NOT NULL,
+        username TEXT NOT NULL UNIQUE,
+        email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL
         )
     `);
