@@ -63,7 +63,7 @@ app.post('/login', (req, res)=>{
         
         if(password === userName.password){
             const token = jwt.sign( {userid: userName.userid, role: 'user'} , process.env.SECRET_KEY,
-                { expiresIn: '10m' }
+                { expiresIn: '1h' }
             );
 
             const refreshToken = jwt.sign({userid: userName.userid, role: 'user'}, 
@@ -177,7 +177,7 @@ app.post('/signup', (req, res)=>{
 
 const blackList = [];
 
-app.delete('/logout', (req, res)=>{
+app.delete('/logout', authenticationToken, authorizeRole('user', 'admin'),(req, res)=>{
     const userHeader = req.headers['authorization'];
     const userToken = userHeader && userHeader.split(' ')[1];
     
