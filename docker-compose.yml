@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: learning-resources-api:local
+    ports:
+      - "3030:3030"
+    env_file:
+      - .env
+    environment:
+      DB_PATH: /app/data/database.db
+    volumes:
+      - app-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  app-data:

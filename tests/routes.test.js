@@ -1,9 +1,8 @@
-const app = require('../server');
 const request = require('supertest');
-const DataBase = require('better-sqlite3');
+const app = require('../src/app');
 
-// Connecting the dataBase
-const db = DataBase('database2.db');
+process.env.DB_PATH = ':memory:';
+const db = require('../src/db');
 
 // Testing units file
 
